@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/includes/functions.php';
+
 if (!isset($_SESSION['logged_in']) || $_SESSION['logged_in'] !== true) {
     header('Location: login.php');
     exit();
@@ -15,13 +17,13 @@ if (!empty($_SESSION['just_logged_in'])) {
 <html lang="de">
 <head>
     <meta charset="UTF-8">
-    <title>Index</title>
+    <title><?php echo t('login_title'); ?></title>
 </head>
 <body>
 <?php if ($show_welcome): ?>
-<h1>Willkommen!</h1>
-<p>Sie sind erfolgreich eingeloggt.</p>
+<h1><?php echo t('welcome'); ?></h1>
+<p><?php echo t('logged_in_success'); ?></p>
 <?php endif; ?>
-<p>Zweiter Login</p>
+<p><?php echo t('second_login'); ?></p>
 </body>
 </html>

@@ -1,0 +1,12 @@
+<?php
+<?php
+return [
+    'login_title' => 'Login',
+    'username' => 'Username',
+    'password' => 'Password',
+    'login_button' => 'Login',
+    'login_error' => 'Wrong username or password.',
+    'welcome' => 'Welcome!',
+    'logged_in_success' => 'You are successfully logged in.',
+    'second_login' => 'Second login'
+];
