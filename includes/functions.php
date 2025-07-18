@@ -18,4 +18,3 @@ function t($key) {
 
     return $lang[$key] ?? $key;
 }
-
