@@ -1,0 +1,6 @@
+# Example .htaccess to provide database credentials
+# NEVER commit your real .htaccess with secrets!
+
+SetEnv DB_PASSWORD "<R**Odu6@2W@v3$>"
+SetEnv DB_HOST "localhost"
+SetEnv DB_NAME "your_database"
