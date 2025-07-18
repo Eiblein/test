@@ -1,5 +1,4 @@
 <?php
-<?php
 return [
     'login_title' => 'Login',
     'username' => 'Benutzername',

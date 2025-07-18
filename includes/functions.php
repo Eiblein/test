@@ -1,5 +1,4 @@
 <?php
-<?php
 function t($key) {
     static $lang = null;
     if ($lang === null) {
