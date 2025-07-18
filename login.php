@@ -22,6 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <meta charset="UTF-8">
     <title><?php echo t('login_title'); ?></title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <?php if ($login_error) : ?>
