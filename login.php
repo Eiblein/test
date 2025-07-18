@@ -1,5 +1,7 @@
 <?php
 session_start();
+require_once __DIR__ . '/includes/functions.php';
+
 $login_error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
@@ -7,38 +9,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Standard Test-User und Passwort: admin / admin
     if ($username === 'admin' && $password === 'admin') {
         $_SESSION['logged_in'] = true;
+        $_SESSION['just_logged_in'] = true;
         header('Location: index.php');
-        if ($username === 'admin' && $password === 'admin') {
-    $_SESSION['logged_in'] = true;
-    $_SESSION['just_logged_in'] = true; // Diese Zeile ergänzen
-    header('Location: index.php');
-    exit();
-}
-//
         exit();
     } else {
-        $login_error = 'Falscher Benutzername oder falsches Passwort.';
+        $login_error = t('login_error');
     }
 }
 ?>
 <!DOCTYPE html>
-<html lang="de">
+<html lang="<?php echo htmlspecialchars($_SESSION['lang'] ?? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'] ?? 'de', 0, 2)); ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title><?php echo t('login_title'); ?></title>
 </head>
 <body>
 <?php if ($login_error) : ?>
 <p style="color:red;"><?php echo htmlspecialchars($login_error); ?></p>
 <?php endif; ?>
 <form method="post" action="login.php">
-    <label for="username">Benutzername:</label>
+    <label for="username"><?php echo t('username'); ?>:</label>
     <input type="text" name="username" id="username" required>
     <br>
-    <label for="password">Passwort:</label>
+    <label for="password"><?php echo t('password'); ?>:</label>
     <input type="password" name="password" id="password" required>
     <br>
-    <button type="submit">Login</button>
+    <button type="submit"><?php echo t('login_button'); ?></button>
 </form>
 </body>
 </html>
