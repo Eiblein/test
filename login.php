@@ -5,6 +5,12 @@ require_once __DIR__ . '/includes/functions.php';
 
 $handler = new DbSessionHandler(SESSION_DB, SESSION_TTL);
 session_set_save_handler($handler, true);
+session_set_cookie_params([
+    'lifetime' => SESSION_COOKIE_LIFETIME,
+    'secure' => SESSION_COOKIE_SECURE,
+    'httponly' => SESSION_COOKIE_HTTPONLY,
+    'samesite' => SESSION_COOKIE_SAMESITE,
+]);
 session_start();
 
 $login_error = '';
