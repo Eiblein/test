@@ -1,23 +1,28 @@
 <?php
 
-// Datenbankverbindungskonstanten (MySQL)
+// Datenbank-Zugangsdaten aus Umgebungsvariablen (gesetzt via .htaccess oder .env)
 define('DB_HOST', getenv('DB_HOST') ?: 'localhost');
-define('DB_NAME', getenv('DB_NAME') ?: 'myapp');
-define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'your_database');
+define('DB_USER', getenv('DB_USER') ?: 'your_user');
+define('DB_PASS', getenv('DB_PASSWORD') ?: 'your_password');
 
-// PDO-Verbindung bereitstellen
+// PDO-Verbindung ohne SSL/TLS (Strato Shared Hosting!)
 try {
     $dsn = 'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME . ';charset=utf8mb4';
-    $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+    $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
+
+        // SSL-Optionen explizit deaktivieren
+        PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT => false,
+        PDO::MYSQL_ATTR_SSL_CA => null,
+    ];
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
 } catch (PDOException $e) {
-    die('Verbindung zur Datenbank fehlgeschlagen: ' . $e->getMessage());
+    die('Datenbankverbindung fehlgeschlagen: ' . $e->getMessage());
 }
 
-// Session-Konstanten
+// Session-Konstanten für Handler & Timeouts
 define('SESSION_DB', [
     'host' => DB_HOST,
     'dbname' => DB_NAME,
@@ -25,12 +30,12 @@ define('SESSION_DB', [
     'pass' => DB_PASS
 ]);
 
-define('SESSION_TTL', 1800); // Session-Datenbank-Einträge: 30 Minuten Lebensdauer
-define('SESSION_TIMEOUT', 900); // Benutzer wird nach 15 Minuten Inaktivität ausgeloggt
+define('SESSION_TTL', 1800); // Datenbank-Speicherzeit für Sessions
+define('SESSION_TIMEOUT', 900); // Inaktivitäts-Logout nach 15 Minuten
 
-// Session-Cookie-Einstellungen
-define('SESSION_COOKIE_LIFETIME', 0); // Gültig bis zum Schließen des Browsers
-define('SESSION_COOKIE_SECURE', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on');
+// Session-Cookie-Konfiguration
+define('SESSION_COOKIE_LIFETIME', 0); // bis Browser geschlossen
+define('SESSION_COOKIE_SECURE', isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'); // nur HTTPS
 define('SESSION_COOKIE_HTTPONLY', true);
 define('SESSION_COOKIE_SAMESITE', 'Strict');
 ?>
