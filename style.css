@@ -41,3 +41,49 @@ table {
 .table-large {
   font-size: 10pt;
 }
+
+/* Button styles */
+button,
+.btn {
+  font-family: var(--font-family-base);
+  font-size: 11pt;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* More rounded buttons */
+.btn-rounded {
+  border-radius: 12px;
+}
+
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* Color variations */
+.btn-black {
+  background-color: var(--color-black);
+  color: var(--color-pantone-yellow);
+}
+
+.btn-gray {
+  background-color: var(--color-dark-gray);
+  color: #ffffff;
+}
+
+.btn-blue {
+  background-color: var(--color-pantone-7698);
+  color: #ffffff;
+}
+
+.btn-yellow {
+  background-color: var(--color-pantone-yellow);
+  color: var(--color-black);
+}
+
+.btn-rosa {
+  background-color: var(--color-rosa);
+  color: var(--color-black);
+}
