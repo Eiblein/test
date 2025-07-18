@@ -11,4 +11,5 @@ return [
     'greeting_morning' => 'Guten Morgen',
     'greeting_afternoon' => 'Guten Tag',
     'greeting_evening' => 'Guten Abend',
+    'logout_button' => 'Abmelden',
 ];

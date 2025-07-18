@@ -1,6 +1,11 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/session_handler.php';
 require_once __DIR__ . '/includes/functions.php';
+
+$handler = new DbSessionHandler(SESSION_DB, SESSION_TTL);
+session_set_save_handler($handler, true);
+session_start();
 
 $login_error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
