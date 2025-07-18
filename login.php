@@ -4,9 +4,17 @@ $login_error = '';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
-    if ($username === 'admin' && $password === 'pass') {
+    // Standard Test-User und Passwort: admin / admin
+    if ($username === 'admin' && $password === 'admin') {
         $_SESSION['logged_in'] = true;
         header('Location: index.php');
+        if ($username === 'admin' && $password === 'admin') {
+    $_SESSION['logged_in'] = true;
+    $_SESSION['just_logged_in'] = true; // Diese Zeile ergänzen
+    header('Location: index.php');
+    exit();
+}
+//
         exit();
     } else {
         $login_error = 'Falscher Benutzername oder falsches Passwort.';
