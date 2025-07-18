@@ -8,4 +8,7 @@ return [
     'welcome' => 'Willkommen!',
     'logged_in_success' => 'Sie sind erfolgreich eingeloggt.',
     'second_login' => 'Zweiter Login',
+    'greeting_morning' => 'Guten Morgen',
+    'greeting_afternoon' => 'Guten Tag',
+    'greeting_evening' => 'Guten Abend',
 ];
