@@ -1,9 +1,11 @@
 # Example .htaccess to provide database credentials
 # NEVER commit your real .htaccess with secrets!
 
-SetEnv DB_PASSWORD "<R**Odu6@2W@v3$>"
-SetEnv DB_HOST "dbu4197636"
+# --- Datenbank-Zugangsdaten ---
+SetEnv DB_HOST "database-5018243735.webspace-host.com"
 SetEnv DB_NAME "dbs14473320"
+SetEnv DB_USER "dbu4197636"
+SetEnv DB_PASSWORD "<R**Odu6@2W@v3$>"
 
 
 
@@ -33,9 +35,6 @@ Options -Indexes
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
-    # HTTPS erzwingen
-    RewriteCond %{HTTPS} !=on
-    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # --------------------------------------
     # SPRACHBASIERTE URLS: /de/login → login.php?lang=de
