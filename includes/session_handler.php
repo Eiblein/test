@@ -3,15 +3,18 @@ class DbSessionHandler implements SessionHandlerInterface {
     private $db;
     private $ttl;
 
-    public function __construct($file, $ttl = 1800) {
+    public function __construct($config, $ttl = 1800) {
         $this->ttl = $ttl;
-        $this->db = new PDO('sqlite:' . $file);
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        // $config ist ein Array mit host, dbname, user, pass
+        $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
+        $this->db = new PDO($dsn, $config['user'], $config['pass'], [
+            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+        ]);
         $this->db->exec("CREATE TABLE IF NOT EXISTS sessions (
-            id TEXT PRIMARY KEY,
+            id VARCHAR(128) PRIMARY KEY,
             data TEXT,
-            timestamp INTEGER
-        )");
+            timestamp INT
+        ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     }
 
     public function open($savePath, $sessionName) {
