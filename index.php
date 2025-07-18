@@ -1,6 +1,17 @@
 <?php
-session_start();
+require_once __DIR__ . '/includes/config.php';
+require_once __DIR__ . '/includes/session_handler.php';
 require_once __DIR__ . '/includes/functions.php';
+
+$handler = new DbSessionHandler(SESSION_DB, SESSION_TTL);
+session_set_save_handler($handler, true);
+session_start();
+
+if (isset($_POST['logout'])) {
+    session_destroy();
+    header('Location: login.php');
+    exit();
+}
 
 // Begrüßung je nach Tageszeit wählen
 $hour = (int)date('H');
@@ -36,5 +47,8 @@ if (!empty($_SESSION['just_logged_in'])) {
 <h1><?php echo t('welcome'); ?></h1>
 <p><?php echo t('logged_in_success'); ?></p>
 <?php endif; ?>
+<form method="post" action="index.php">
+    <button type="submit" name="logout"><?php echo t('logout_button'); ?></button>
+</form>
 </body>
 </html>
