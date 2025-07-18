@@ -1,0 +1,89 @@
+:root {
+  --color-black: #000000;
+  --color-dark-gray: #4d4d4d;
+  --color-pantone-7698: #004b7c;
+  --color-pantone-yellow: #fedd00;
+  --color-rosa: #ff69b4;
+
+  --font-family-base: "Lab Grotesque", "Helvetica Neue", Arial, sans-serif;
+}
+
+body {
+  font-family: var(--font-family-base);
+  font-size: 11pt;
+  color: var(--color-black);
+  background-color: var(--color-pantone-7698);
+}
+
+h1 {
+  font-size: 18pt;
+  color: var(--color-pantone-7698);
+}
+
+h2, h3 {
+  font-size: 14pt;
+  color: var(--color-black);
+}
+
+h4 {
+  font-size: 12pt;
+}
+
+h5, h6 {
+  font-size: 11pt;
+}
+
+table {
+  font-size: 11pt;
+}
+
+/* Large tables may use a smaller font size */
+.table-large {
+  font-size: 10pt;
+}
+
+/* Button styles */
+button,
+.btn {
+  font-family: var(--font-family-base);
+  font-size: 11pt;
+  padding: 0.5em 1em;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+/* More rounded buttons */
+.btn-rounded {
+  border-radius: 12px;
+}
+
+.btn-pill {
+  border-radius: 999px;
+}
+
+/* Color variations */
+.btn-black {
+  background-color: var(--color-black);
+  color: var(--color-pantone-yellow);
+}
+
+.btn-gray {
+  background-color: var(--color-dark-gray);
+  color: #ffffff;
+}
+
+.btn-blue {
+  background-color: var(--color-pantone-7698);
+  color: #ffffff;
+}
+
+.btn-yellow {
+  background-color: var(--color-pantone-yellow);
+  color: var(--color-black);
+}
+
+.btn-rosa {
+  background-color: var(--color-rosa);
+  color: var(--color-black);
+}
