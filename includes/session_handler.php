@@ -5,15 +5,20 @@ class DbSessionHandler implements SessionHandlerInterface {
 
     public function __construct($config, $ttl = 1800) {
         $this->ttl = $ttl;
-        // $config ist ein Array mit host, dbname, user, pass
         $dsn = "mysql:host={$config['host']};dbname={$config['dbname']};charset=utf8mb4";
-        $this->db = new PDO($dsn, $config['user'], $config['pass'], [
-            PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        ]);
+        try {
+            $this->db = new PDO($dsn, $config['user'], $config['pass'], [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+            ]);
+        } catch (PDOException $e) {
+            die("Verbindung zur Datenbank fehlgeschlagen: " . $e->getMessage());
+        }
+
         $this->db->exec("CREATE TABLE IF NOT EXISTS sessions (
             id VARCHAR(128) PRIMARY KEY,
             data TEXT,
-            timestamp INT
+            timestamp INT,
+            INDEX (timestamp)
         ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     }
 
@@ -33,7 +38,9 @@ class DbSessionHandler implements SessionHandlerInterface {
     }
 
     public function write($id, $data) {
-        $stmt = $this->db->prepare("REPLACE INTO sessions(id, data, timestamp) VALUES(:id, :data, :time)");
+        $stmt = $this->db->prepare("INSERT INTO sessions (id, data, timestamp)
+            VALUES (:id, :data, :time)
+            ON DUPLICATE KEY UPDATE data = VALUES(data), timestamp = VALUES(timestamp)");
         return $stmt->execute([':id' => $id, ':data' => $data, ':time' => time()]);
     }
 
@@ -47,3 +54,4 @@ class DbSessionHandler implements SessionHandlerInterface {
         return $stmt->execute([':time' => time() - $this->ttl]);
     }
 }
+?>
